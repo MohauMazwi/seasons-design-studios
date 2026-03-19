@@ -9,7 +9,7 @@ function initHero3D() {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 200);
-  camera.position.z = 40;
+  camera.position.z = window.innerWidth <= 768 ? 70 : 40;
 
   const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
   renderer.setSize(window.innerWidth, window.innerHeight);
@@ -130,6 +130,7 @@ function initHero3D() {
 
   window.addEventListener('resize', () => {
     camera.aspect = window.innerWidth / window.innerHeight;
+    camera.position.z = window.innerWidth <= 768 ? 70 : 40;
     camera.updateProjectionMatrix();
     renderer.setSize(window.innerWidth, window.innerHeight);
     calcMax();
@@ -156,8 +157,12 @@ function initHero3D() {
       const state2 = targetStates[nextIndex][i];
       
       // Interpolate position
-      const targetPx = THREE.MathUtils.lerp(state1.p[0], state2.p[0], lerpFactor);
-      const targetPy = THREE.MathUtils.lerp(state1.p[1], state2.p[1], lerpFactor);
+      const isMob = window.innerWidth <= 768;
+      const xMult = isMob ? 0.3 : 1.0;
+      const yMult = isMob ? 0.8 : 1.0;
+      
+      const targetPx = THREE.MathUtils.lerp(state1.p[0] * xMult, state2.p[0] * xMult, lerpFactor);
+      const targetPy = THREE.MathUtils.lerp(state1.p[1] * yMult, state2.p[1] * yMult, lerpFactor);
       const targetPz = THREE.MathUtils.lerp(state1.p[2], state2.p[2], lerpFactor);
 
       // Interpolate rotational velocity dynamically
@@ -251,31 +256,31 @@ function isMobile() {
 }
 
 function handleWheel(e) {
-  // Mobile requires deeper touch/swipe tracking. Wheel is usually a mouse event, but 
-  // if some mobile browsers fire it, we map horizontal correctly. 
-  // We check if target is inside an overflowing vertical scroller (like mobile services-grid)
   const isScrollable = e.target.closest('.glass-services-grid, .glass-cards-list, .contact-layout');
-  if (isScrollable && (isScrollable.scrollHeight > isScrollable.clientHeight)) {
-    // If it's a mobile container with inner scrolling, and we are not at top/bottom, allow native
-    const isAtTop = isScrollable.scrollTop === 0;
-    const isAtBottom = isScrollable.scrollTop + isScrollable.clientHeight >= isScrollable.scrollHeight;
+  
+  if (isScrollable) {
+    const canScrollX = isScrollable.scrollWidth > isScrollable.clientWidth;
+    const canScrollY = isScrollable.scrollHeight > isScrollable.clientHeight;
     
-    // We only prevent default if we're trying to scroll horizontally
-    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-      e.preventDefault();
-      target = Math.max(0, Math.min(maxH, target + (e.deltaX || e.deltaY) * 1.5));
-      clearTimeout(snapTimer);
-      snapTimer = setTimeout(snapToNearest, 250);
-      return;
+    if (canScrollX && Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+      const isAtLeft = isScrollable.scrollLeft <= 0;
+      const isAtRight = isScrollable.scrollLeft + isScrollable.clientWidth >= isScrollable.scrollWidth - 1;
+      if (!((e.deltaX < 0 && isAtLeft) || (e.deltaX > 0 && isAtRight))) {
+        return; // Allow native inner X scroll
+      }
     }
     
-    if ((e.deltaY < 0 && !isAtTop) || (e.deltaY > 0 && !isAtBottom)) {
-      return; // Allow native vertical scroll block to happen
+    if (canScrollY && Math.abs(e.deltaY) >= Math.abs(e.deltaX)) {
+      const isAtTop = isScrollable.scrollTop <= 0;
+      const isAtBottom = isScrollable.scrollTop + isScrollable.clientHeight >= isScrollable.scrollHeight - 1;
+      if (!((e.deltaY < 0 && isAtTop) || (e.deltaY > 0 && isAtBottom))) {
+        return; // Allow native inner Y scroll
+      }
     }
   }
 
   e.preventDefault();
-  const delta = e.deltaX || e.deltaY; // Prefer X scroll if available (trackpads)
+  const delta = e.deltaX || e.deltaY;
   target = Math.max(0, Math.min(maxH, target + delta * 1.5));
   clearTimeout(snapTimer);
   snapTimer = setTimeout(snapToNearest, 250);
@@ -291,13 +296,23 @@ function tMove(e) {
   const dx = tx - e.touches[0].clientX;
   const dy = ty - e.touches[0].clientY;
   
-  if (isScrollable && (isScrollable.scrollHeight > isScrollable.clientHeight)) {
-    const isAtTop = isScrollable.scrollTop <= 0;
-    const isAtBottom = isScrollable.scrollTop + isScrollable.clientHeight >= isScrollable.scrollHeight - 1;
+  if (isScrollable) {
+    const canScrollX = isScrollable.scrollWidth > isScrollable.clientWidth;
+    const canScrollY = isScrollable.scrollHeight > isScrollable.clientHeight;
     
-    // If swiping mostly vertically inside a scrollable div, let native browser handle vertical scroll!
-    if (Math.abs(dy) > Math.abs(dx)) {
-      if ((dy < 0 && !isAtTop) || (dy > 0 && !isAtBottom)) {
+    if (canScrollX && Math.abs(dx) > Math.abs(dy)) {
+      const isAtLeft = isScrollable.scrollLeft <= 0;
+      const isAtRight = isScrollable.scrollLeft + isScrollable.clientWidth >= isScrollable.scrollWidth - 1;
+      if (!((dx < 0 && isAtLeft) || (dx > 0 && isAtRight))) {
+        tx = e.touches[0].clientX; ty = e.touches[0].clientY;
+        return; 
+      }
+    }
+    
+    if (canScrollY && Math.abs(dy) >= Math.abs(dx)) {
+      const isAtTop = isScrollable.scrollTop <= 0;
+      const isAtBottom = isScrollable.scrollTop + isScrollable.clientHeight >= isScrollable.scrollHeight - 1;
+      if (!((dy < 0 && isAtTop) || (dy > 0 && isAtBottom))) {
         tx = e.touches[0].clientX; ty = e.touches[0].clientY;
         return; 
       }
@@ -305,15 +320,9 @@ function tMove(e) {
   }
   
   e.preventDefault();
-  
-  // Choose the dominant swipe direction. 
-  // On mobile horizontally swiping the viewport should advance panels.
   const d = Math.abs(dx) > Math.abs(dy) ? dx : dy;
-  
-  // Note: mobile swipe is usually scaled up slightly
   target = Math.max(0, Math.min(maxH, target + d * 2.5));
   tx = e.touches[0].clientX; ty = e.touches[0].clientY;
-  
   clearTimeout(snapTimer);
   snapTimer = setTimeout(snapToNearest, 250);
 }
