@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>SEASONS® Design Studios</title>
+  <meta name="description" content="SEASONS® — Multi-disciplinary design studio. Web, product, identity.">
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="nav glass" id="main-nav">
+    <img src="./assets/logo.png" alt="SEASONS®" class="nav-logo-img" id="nav-logo">
+    <ul class="nav-links">
+      <li><a href="#hero" data-panel="0">index</a></li>
+      <li><a href="#about" data-panel="1">studio</a></li>
+      <li><a href="#services" data-panel="2">services</a></li>
+      <li><a href="#works" data-panel="3">archive</a></li>
+      <li><a href="#contact" data-panel="4">inquire</a></li>
+    </ul>
+  </nav>
+
+  <!-- PROGRESS -->
+  <div class="progress-bar" id="progress-bar"></div>
+
+  <!-- SVG JOURNEY LINE -->
+  <div class="journey-line-container" id="journey-container">
+    <svg viewBox="0 0 1920 1080" preserveAspectRatio="none">
+      <path id="journey-path"
+        d="M -20 540
+           C 200 540, 250 200, 480 300
+           S 600 800, 800 540
+           S 1000 100, 1200 400
+           S 1400 900, 1600 540
+           S 1800 200, 1940 540" />
+    </svg>
+  </div>
+
+  <!-- SCROLL HINT -->
+  <div class="scroll-hint" id="scroll-hint">
+    <span>scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+
+  <!-- GLOBAL 3D CANVAS -->
+  <canvas id="hero-canvas"></canvas>
+
+  <!-- HORIZONTAL CONTAINER -->
+  <main id="scroll-container">
+
+    <!-- 01 — HERO (BRUTALIST) -->
+    <section class="panel hero" id="hero">
+      <div class="hero-border-top"></div>
+      <div class="hero-border-bottom"></div>
+      <div class="hero-grid-lines">
+        <div class="vline" style="left:8vw"></div>
+        <div class="vline" style="left:20vw"></div>
+        <div class="vline" style="left:50vw"></div>
+        <div class="vline" style="left:80vw"></div>
+        <div class="vline" style="left:92vw"></div>
+      </div>
+      <div class="hero-content">
+        <img src="./assets/logo_beige.png" alt="SEASONS®" class="hero-logo reveal">
+        <h1 class="reveal">
+          SEASONS®
+          <span class="line-2">DESIGN STUDIO</span>
+          <span class="line-3">Pretoria / Johannesburg / Durban / Cape Town — 2024</span>
+        </h1>
+        <p class="hero-sub reveal">Multi-disciplinary practice operating across web, product & identity systems. Designing for those who notice the details.</p>
+        <button class="hero-cta reveal" id="cta-btn">VIEW ARCHIVE →</button>
+      </div>
+    </section>
+
+    <!-- 02 — STUDIO -->
+    <section class="panel about" id="about">
+      <!-- VIBRANT AMBIENT LIGHTING -->
+      <div class="glass-bg-mesh">
+        <div class="mesh-orb orb-1"></div>
+        <div class="mesh-orb orb-2"></div>
+      </div>
+      
+      <div class="glass-layout">
+        <div class="glass-header">
+          <div class="label reveal-left" style="margin-bottom:1.2rem;opacity:0.6; color: var(--green);">001 — STUDIO</div>
+          <h2 class="reveal-left" style="color: var(--charcoal); font-size: clamp(32px, 5vw, 64px);">EVERY PROJECT IS AN EXHIBITION.<br>EVERY PIXEL, A DECISION.</h2>
+          <p class="body-text reveal-left" style="margin-top:1.5rem; max-width: 800px; font-size: 14px; color: var(--charcoal); opacity: 0.8;">No templates. No shortcuts. We start with a blank canvas and build systems designed to outlast whatever's trending. Rooted in minimalism. Informed by architecture. Driven by restraint.</p>
+        </div>
+        
+        <div class="glass-cards-list">
+          <div class="glass-card-pro reveal-scale" style="transition-delay: 0.1s;">
+            <span class="card-num-bg">01</span>
+            <div class="card-glass-content">
+              <h4>INTENTIONALITY</h4>
+              <p>Nothing decorative. Everything functional.</p>
+            </div>
+            <div class="glass-flare"></div>
+          </div>
+          <div class="glass-card-pro reveal-scale" style="transition-delay: 0.3s;">
+            <span class="card-num-bg">02</span>
+            <div class="card-glass-content">
+              <h4>REDUCTION</h4>
+              <p>Distill until only the signal remains.</p>
+            </div>
+            <div class="glass-flare"></div>
+          </div>
+          <div class="glass-card-pro reveal-scale" style="transition-delay: 0.5s;">
+            <span class="card-num-bg">03</span>
+            <div class="card-glass-content">
+              <h4>PERMANENCE</h4>
+              <p>Systems built to endure, not to trend.</p>
+            </div>
+            <div class="glass-flare"></div>
+          </div>
+          <div class="glass-card-pro reveal-scale" style="transition-delay: 0.7s;">
+            <span class="card-num-bg">04</span>
+            <div class="card-glass-content">
+              <h4>ATMOSPHERE</h4>
+              <p>Design that is felt before it is seen.</p>
+            </div>
+            <div class="glass-flare"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 — SERVICES -->
+    <section class="panel services" id="services">
+      <!-- VIBRANT AMBIENT LIGHTING -->
+      <div class="glass-bg-mesh">
+        <div class="mesh-orb orb-3"></div>
+        <div class="mesh-orb orb-4"></div>
+      </div>
+      
+      <div class="glass-header" style="margin-bottom: 3rem; color: var(--off-white); z-index: 2; position: relative;">
+        <div class="label reveal" style="margin-bottom:1.2rem;opacity:0.6; color: var(--sage);">002 — CAPABILITIES</div>
+        <h2 class="reveal" style="font-size: clamp(32px, 5vw, 64px);">WHAT WE MAKE</h2>
+      </div>
+      
+      <div class="glass-services-grid">
+        <div class="glass-pane-pro reveal-scale" style="transition-delay: 0.1s;">
+          <span class="glass-huge-num">01</span>
+          <div class="glass-pane-content">
+            <h3>DIGITAL EXPERIENCES</h3>
+            <p>Websites and platforms engineered with obsessive attention to interaction, motion, and hierarchy.</p>
+          </div>
+          <div class="glass-flare"></div>
+        </div>
+        <div class="glass-pane-pro reveal-scale" style="transition-delay: 0.3s;">
+          <span class="glass-huge-num">02</span>
+          <div class="glass-pane-content">
+            <h3>IDENTITY SYSTEMS</h3>
+            <p>Brand architectures from mark to motion system. Palette to positioning. The full canon.</p>
+          </div>
+          <div class="glass-flare"></div>
+        </div>
+        <div class="glass-pane-pro reveal-scale" style="transition-delay: 0.5s;">
+          <span class="glass-huge-num">03</span>
+          <div class="glass-pane-content">
+            <h3>OBJECT & PRODUCT</h3>
+            <p>Physical and digital product design. Objects designed to be held, touched, remembered.</p>
+          </div>
+          <div class="glass-flare"></div>
+        </div>
+        <div class="glass-pane-pro reveal-scale" style="transition-delay: 0.7s;">
+          <span class="glass-huge-num">04</span>
+          <div class="glass-pane-content">
+            <h3>APP DEVELOPMENT</h3>
+            <p>High-fidelity native and cross-platform applications constructed for scale, performance, and grace.</p>
+          </div>
+          <div class="glass-flare"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 — ARCHIVE (SEAMLESS TRAP) -->
+    <section class="panel archive-panel" id="works">
+      
+      <!-- Inner container moved via JS for seamless scroll -->
+      <div class="archive-inner" id="archive-inner">
+        <div class="archive-header">
+          <div class="label reveal" style="margin-bottom:1.2rem;opacity:0.4;">003 — ARCHIVE</div>
+          <h2 class="reveal">SELECTED INDEX</h2>
+        </div>
+        <div class="archive-grid stagger">
+          <div class="archive-item reveal-scale">
+            <div class="archive-item-bg ai-1"></div>
+            <div class="archive-overlay"><div><h3>MAISON VERRE</h3><span class="label">IDENTITY — PARIS, FR</span></div><span class="archive-year">2025</span></div>
+          </div>
+          <div class="archive-item reveal-scale">
+            <div class="archive-item-bg ai-2"></div>
+            <div class="archive-overlay"><div><h3>VOID ARCHITECTS</h3><span class="label">WEB — TOKYO, JP</span></div><span class="archive-year">2025</span></div>
+          </div>
+          <div class="archive-item reveal-scale">
+            <div class="archive-item-bg ai-3"></div>
+            <div class="archive-overlay"><div><h3>ARC COLLECTIVE</h3><span class="label">PRODUCT — NEW YORK, US</span></div><span class="archive-year">2024</span></div>
+          </div>
+          <div class="archive-item reveal-scale">
+            <div class="archive-item-bg ai-4"></div>
+            <div class="archive-overlay"><div><h3>NOIR GALLERY</h3><span class="label">IDENTITY — LONDON, UK</span></div><span class="archive-year">2024</span></div>
+          </div>
+          <div class="archive-item reveal-scale">
+            <div class="archive-item-bg ai-5"></div>
+            <div class="archive-overlay"><div><h3>TERRA BOTANICS</h3><span class="label">WEB + IDENTITY — LA, US</span></div><span class="archive-year">2024</span></div>
+          </div>
+          <div class="archive-item reveal-scale">
+            <div class="archive-item-bg ai-6"></div>
+            <div class="archive-overlay"><div><h3>FORM° STUDIO</h3><span class="label">PRODUCT — BERLIN, DE</span></div><span class="archive-year">2023</span></div>
+          </div>
+          <div class="archive-item reveal-scale">
+            <div class="archive-item-bg ai-7"></div>
+            <div class="archive-overlay"><div><h3>LUMEN & CO</h3><span class="label">WEB — LONDON, UK</span></div><span class="archive-year">2023</span></div>
+          </div>
+          <div class="archive-item reveal-scale">
+            <div class="archive-item-bg ai-8"></div>
+            <div class="archive-overlay"><div><h3>ATELIER NOUVEAU</h3><span class="label">IDENTITY — MONTREAL, CA</span></div><span class="archive-year">2022</span></div>
+          </div>
+          <div class="archive-item reveal-scale">
+            <div class="archive-item-bg ai-9"></div>
+            <div class="archive-overlay"><div><h3>KINETIC LABS</h3><span class="label">APP — SAN FRANCISCO, US</span></div><span class="archive-year">2022</span></div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- 05 — CONTACT -->
+    <section class="panel contact" id="contact">
+      <div class="contact-layout">
+        <div class="contact-text">
+          <div class="label reveal-left" style="margin-bottom:1.2rem;opacity:0.3;">004 — INQUIRIES</div>
+          <h2 class="reveal-left">NEW PROJECT?<br>LET'S TALK.<br><span class="accent">WE'RE LISTENING.</span></h2>
+          <p class="body-text reveal-left">Whether it's a brand from zero or a platform at scale — tell us what you're building.</p>
+          <div class="label reveal-left" style="margin-top:1.5rem;opacity:0.15;">hello@seasons.studio</div>
+        </div>
+        <form id="inquiry-form" class="contact-form glass-dark reveal-right">
+          <div class="form-group"><label>name</label><input type="text" id="form-name" placeholder="Your name" autocomplete="name" required></div>
+          <div class="form-group"><label>email</label><input type="email" id="form-email" placeholder="you@company.com" autocomplete="email" required></div>
+          <div class="form-group"><label>brief</label><textarea id="form-brief" placeholder="Tell us about your project..." required></textarea></div>
+          <button type="submit" id="form-submit-btn" class="submit-btn">SUBMIT INQUIRY →</button>
+        </form>
+      </div>
+      <div class="footer-bar">
+        <span>© 2026 SEASONS® DESIGN STUDIOS</span>
+        <div class="footer-socials"><a href="#">INSTAGRAM</a><a href="#">BEHANCE</a><a href="#">ARE.NA</a><a href="#">LINKEDIN</a></div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- SUPABASE SDK v2 -->
+  <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
